@@ -1,53 +1,101 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>パスコード入力 | 中国統一史</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>中国統一史</title>
   <style>
     body {
-      font-family: sans-serif;
-      background-color: #fdf6f0;
-      text-align: center;
-      padding: 2em;
+      margin: 0;
+      font-family: "Yu Mincho", serif;
+      background: url('flames-background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
     }
     .container {
-      max-width: 400px;
-      margin: 0 auto;
-      background: #fff8e6;
-      padding: 2em;
-      border-radius: 1em;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      max-width: 600px;
+      margin: 50px auto;
+      border-radius: 10px;
     }
-    input[type="text"] {
-      width: 80%;
-      padding: 0.8em;
-      font-size: 1.1em;
-      border: 1px solid #ccc;
-      border-radius: 0.5em;
+    h1 {
+      text-align: center;
+      font-size: 2em;
     }
-    button {
-      margin-top: 1em;
-      padding: 0.7em 2em;
-      font-size: 1em;
+    .button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1.2em;
+      background: #a00;
       border: none;
-      border-radius: 0.5em;
-      background-color: #d24c2c;
       color: white;
+      border-radius: 5px;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #b53e20;
+    .input 
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>パスコード入力</h2>
-    <p>登録したメールに届いたワンタイムパスコードを入力してください。</p>
-    <input type="text" placeholder="例: 123456">
-    <br>
-    <button>認証</button>
+  <div class="container" id="home">
+    <h1>中国統一史</h1>
+    <button class="button" onclick="showLogin()">ログイン / 新規登録</button>
+    <button class="button" onclick="alert('ゲストで学習モードへ')">ゲストで学ぶ</button>
   </div>
+
+  <div class="container" id="login" style="display:none;">
+    <h1>ログイン / 登録</h1>
+    <input type="text" id="username" class="input" placeholder="ユーザー名" />
+    <input type="text" id="passcode" class="input" placeholder="6文字以上のパスコード" />
+    <button class="button" onclick="login()">ログイン / 登録する</button>
+    <button class="button" onclick="backToHome()">戻る</button>
+  </div>
+
+  <div class="container" id="mypage" style="display:none;">
+    <h1>マイページ</h1>
+    <p>平均順位: 2.3（12位）</p>
+    <p>平均点数: 23100（5位）</p>
+    <p>勝率: 40%（8位）</p>
+    <p>総得点: 231000（3位）</p>
+    <h3>対戦履歴</h3>
+    <ul>
+      <li onclick="alert('詳細を表示')">2025/5/13 対兵士 勝利</li>
+      <li onclick="alert('詳細を表示')">2025/5/10 対将軍 敗北</li>
+    </ul>
+    <button class="button" onclick="alert('部屋作成へ')">部屋を作成</button>
+    <button class="button" onclick="backToHome()">ログアウト</button>
+  </div>
+
+  <script>
+    function showLogin() {
+      document.getElementById("home").style.display = "none";
+      document.getElementById("login").style.display = "block";
+    }
+    function login() {
+      const username = document.getElementById("username").value;
+      const passcode = document.getElementById("passcode").value;
+      if (username.length === 0 || passcode.length < 6) {
+        alert("ユーザー名と6文字以上のパスコードを入力してください");
+        return;
+      }
+      // 仮のログイン成功処理
+      document.getElementById("login").style.display = "none";
+      document.getElementById("mypage").style.display = "block";
+    }
+    function backToHome() {
+      document.getElementById("login").style.display = "none";
+      document.getElementById("mypage").style.display = "none";
+      document.getElementById("home").style.display = "block";
+    }
+  </script>
 </body>
 </html>
