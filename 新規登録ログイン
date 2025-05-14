@@ -2,47 +2,99 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>親規登録／ログイン - 中国統一史</title>
-  <link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&display=swap" rel="stylesheet">
+  <title>中国統一史 - ログイン / 新規登録</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Yuji Syuku', serif;
-      background-image: url('https://example.com/fire-background.jpg');
-      background-size: cover;
-      background-position: center;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    .container {
-      background: rgba(0, 0, 0, 0.6);
+      font-family: sans-serif;
       padding: 20px;
-      border-radius: 12px;
+      background: #fffaf0;
+    }
+    .tabs {
+      display: flex;
+      margin-bottom: 10px;
+    }
+    .tab-button {
+      flex: 1;
+      padding: 10px;
+      cursor: pointer;
+      background-color: #eee;
+      border: 1px solid #ccc;
       text-align: center;
     }
-    input, button {
-      margin: 10px;
-      padding: 10px;
-      font-size: 16px;
+    .tab-button.active {
+      background-color: #fff;
+      font-weight: bold;
     }
-    input {
-      width: 80%;
+    .form-container {
+      border: 1px solid #ccc;
+      padding: 15px;
+      background-color: #fff;
+    }
+    .form-container input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px 0;
+      box-sizing: border-box;
+    }
+    .form-container button {
+      padding: 10px;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>親規登録／ログイン</h1>
-    <form action="/send_code" method="post">
-      <input type="email" name="email" placeholder="メールアドレス" required><br>
-      <input type="text" name="username" placeholder="ユーザー名" required><br>
-      <button type="submit">パスコードを送る</button>
+
+  <h1>中国統一史</h1>
+
+  <div class="tabs">
+    <div class="tab-button active" onclick="switchTab('login')">ログイン</div>
+    <div class="tab-button" onclick="switchTab('register')">新規登録</div>
+  </div>
+
+  <div class="form-container" id="login-form">
+    <form>
+      <label for="login-username">ユーザー名：</label>
+      <input type="text" id="login-username" required>
+
+      <label for="login-passcode">パスコード：</label>
+      <input type="password" id="login-passcode" required>
+
+      <button type="submit">ログイン</button>
     </form>
   </div>
+
+  <div class="form-container" id="register-form" style="display:none;">
+    <form>
+      <label for="register-username">ユーザー名：</label>
+      <input type="text" id="register-username" required>
+
+      <label for="register-passcode">パスコード（6文字以上の英数字）：</label>
+      <input type="password" id="register-passcode" pattern="[A-Za-z0-9]{6,}" required>
+
+      <button type="submit">登録</button>
+    </form>
+  </div>
+
+  <script>
+    function switchTab(tab) {
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+      const tabButtons = document.getElementsByClassName('tab-button');
+
+      for (let btn of tabButtons) btn.classList.remove('active');
+
+      if (tab === 'login') {
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        tabButtons[0].classList.add('active');
+      } else {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+        tabButtons[1].classList.add('active');
+      }
+    }
+  </script>
+
 </body>
 </html>
+
